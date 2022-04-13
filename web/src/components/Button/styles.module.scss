@@ -1,0 +1,36 @@
+.button {
+  max-width: 600px;
+  border: 0;
+  border-radius: 2px;
+  padding: 0.4rem;
+  background: var(--yellow-700);
+  transition: filter 0.2s;
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    svg {
+      animation: animateSpinner 2s infinite;
+    }
+  }
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+
+.buttonText {
+  color: var(--white);
+  font-size: 1rem;
+}
+
+@keyframes animateSpinner {
+  from {
+    transform: rotate(0deg);
+  }
+
+
+  to {
+    transform: rotate(360deg);
+  }
+}
