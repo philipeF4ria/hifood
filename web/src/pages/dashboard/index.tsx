@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useContext } from 'react';
 import Head from 'next/head';
 
 import { Header } from '../../components/Header';
@@ -8,9 +8,13 @@ import { Button } from '../../components/Button';
 
 import { canSSRAuth } from '../../utils/canSSRAuth';
 
+import { ModalContext } from '../../contexts/ModalContext';
+ 
 import { api } from '../../services/apiClient';
 
 export default function Dashboard() {
+  const { isVisible } = useContext(ModalContext);
+
   const [category, setCategory] = useState('');
   
   async function handleAddCategory(event: FormEvent) {
@@ -36,7 +40,7 @@ export default function Dashboard() {
       </Head>
       <div>
         <Header />
-        <Modal title="Nova Categoria">
+        <Modal title="Nova Categoria" isVisible={isVisible}>
           <form onSubmit={handleAddCategory}>
             <Input
               placeholder="Nome da categoria"

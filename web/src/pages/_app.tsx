@@ -5,12 +5,15 @@ import '../../styles/globals.scss';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { AuthProvider } from '../contexts/AuthContext';
+import { ModalProvider } from '../contexts/ModalContext';
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
-      <ToastContainer autoClose={3000}/>
+      <ModalProvider>
+        <Component {...pageProps} />
+        <ToastContainer autoClose={3000}/>
+      </ModalProvider>
     </AuthProvider>
   );
 }

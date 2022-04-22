@@ -20,9 +20,21 @@
   height: 564px;
   width: 736px;
 
-  h1 {
-    font-size: 22px;
-    color: var(--titles);
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 22px;
+      color: var(--titles);
+    }
+
+    svg {
+      cursor: pointer;
+      color: var(--danger);
+    }
+
   }
 
   input {
