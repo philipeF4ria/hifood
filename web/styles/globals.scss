@@ -12,8 +12,10 @@
   --dark-700: #1D1D2E;
   --gray-100: #8A8A8A;
   --green-900: #41C900;
+  --green-700: #39B100;
   --red-900: #C72828;
   --yellow-700: #FFB84D;
+  --titles: #3D3D4D;
 }
 
 button {
@@ -26,7 +28,7 @@ a {
 }
 
 body {
-  background-color: var(--red-900);
+  background-color: var(--white);
 }
 
 body, input, textarea, select, button {

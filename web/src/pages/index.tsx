@@ -2,11 +2,14 @@ import { FormEvent, useContext, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
 
 import { AuthContext } from '../contexts/AuthContext';
+
+import { canSSRGuest } from '../utils/canSSRGuest';
 
 import styles from '../../styles/home.module.scss';
 
@@ -21,12 +24,21 @@ export default function Home() {
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
     
+    if (!email || !password) {
+      toast.error('Insira os dados corretamente');
+      return;
+    }
+
+    setLoading(true);
+
     const data = {
       email,
       password,
     };
 
-    signIn(data);
+    await signIn(data);
+
+    setLoading(false);
 
     setEmail('');
     setPassword('');
@@ -40,8 +52,8 @@ export default function Home() {
       <div className={styles.container}>
         <Image src={logo} alt="HiFood"/>
         <div className={styles.loginForm}>
-          <form>
-            <Input 
+          <form onSubmit={handleLogin}>
+            <Input
               placeholder="Seu E-mail"
               type="email"
               value={email}
@@ -53,10 +65,7 @@ export default function Home() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button 
-              loading={false}
-              onClick={handleLogin}
-            >
+            <Button loading={loading}>
               Fazer Login
             </Button>
           </form>
@@ -68,3 +77,9 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+  return {
+    props: {},
+  }
+});

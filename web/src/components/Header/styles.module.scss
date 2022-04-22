@@ -1,0 +1,50 @@
+.container {
+  background-color: var(--red-900);
+  height: 112px;
+  max-height: 112px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  nav {
+    display: flex;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      margin-left: 32px;
+      font-weight: 500;
+      transition: color 0.3s;
+
+      svg {
+        margin-left: 8px;
+        color: var(--white);
+        transition: color 0.3s;
+      }
+
+      &:hover {
+        color: var(--yellow-700);
+
+        svg {
+          color: var(--yellow-700);
+        }
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: var(--white);
+      margin-left: 32px;
+      transition: color 0.3s;      
+
+      &:hover {
+        color: var(--yellow-700);
+      }
+    }
+  }
+}
