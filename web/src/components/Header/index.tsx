@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiHome, FiCoffee, FiBarChart, FiLogOut } from 'react-icons/fi';
+import { FiMessageSquare, FiCoffee, FiBarChart, FiLogOut } from 'react-icons/fi';
 
 import { AuthContext } from '../../contexts/AuthContext';
 
@@ -16,13 +16,13 @@ export function Header() {
     <header className={styles.container}>
       <Image src={logo} alt="HiFood"/>
       <nav>
-        <Link href="/dashboard">
+        <Link href="/orders">
           <a>
-            Home
-            <FiHome size={20}/>
+            Pedidos
+            <FiMessageSquare size={20}/>
           </a>
         </Link>
-        <Link href="/dashboard">
+        <Link href="/products">
           <a>
             Produtos
             <FiCoffee size={20}/>

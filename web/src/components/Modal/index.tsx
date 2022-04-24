@@ -4,17 +4,14 @@ import { FiX } from 'react-icons/fi';
 
 import styles from './styles.module.scss';
 
-import { ModalContext } from '../../contexts/ModalContext';
-
 type ModalProps = {
   title: String;
-  isVisible: Boolean; 
+  isVisible: Boolean;
+  handleToggleModal: () => void;
   children: ReactNode;
 }
 
-export function Modal({ title, isVisible, children }: ModalProps) {
-  const { handleToggleModal } = useContext(ModalContext);
-  
+export function Modal({ title, isVisible, handleToggleModal, children }: ModalProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
