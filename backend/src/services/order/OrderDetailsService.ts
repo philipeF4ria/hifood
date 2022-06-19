@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { ItemRepository } from '../../repositories/ItemRepository';
 
 interface IRequest {
   order_id: string;
@@ -6,20 +6,13 @@ interface IRequest {
 
 class OrderDetailsService {
   async execute({ order_id }: IRequest) {
+    const itemRepository = new ItemRepository();
 
     if (!order_id) {
       throw new Error('Order ID is required');
     }
 
-    const order = await prismaClient.item.findFirst({
-      where: {
-        order_id,
-      },
-      include: {
-        product: true,
-        order: true,
-      },
-    });
+    const order = await itemRepository.details({ order_id });
 
     return order;
   }

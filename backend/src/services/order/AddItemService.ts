@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { ItemRepository } from '../../repositories/ItemRepository';
 
 interface IRequest {
  order_id: string;
@@ -8,12 +8,12 @@ interface IRequest {
 
 class AddItemService {
   async execute({ order_id, product_id, amount }: IRequest) {
-    const order = await prismaClient.item.create({
-      data: {
-        order_id,
-        product_id,
-        amount,
-      },
+    const itemRepository = new ItemRepository();
+    
+    const order = await itemRepository.create({
+      order_id,
+      product_id,
+      amount,
     });
 
     return order;

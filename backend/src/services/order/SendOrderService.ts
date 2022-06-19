@@ -1,24 +1,17 @@
-import prismaClient from '../../prisma';
-
+import { OrderRepository } from '../../repositories/OrderRepository';
 interface IRequest {
   order_id: string;
 }
 
 class SendOrderService {
   async execute({ order_id }: IRequest) {
-    
+    const orderRepository = new OrderRepository();
+
     if (!order_id) {
       throw new Error('Order Id is required');
     }
     
-    const order = await prismaClient.order.update({
-      where: {
-        id: order_id,
-      },
-      data: {
-        draft: false,
-      },
-    });
+    const order = await orderRepository.updateDraft({ order_id });
 
     return order;
   }

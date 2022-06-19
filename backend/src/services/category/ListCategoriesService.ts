@@ -1,13 +1,10 @@
-import prismaClient from '../../prisma';
+import { CategoryRepository } from '../../repositories/CategoryRepository';
 
 class ListCategoriesService {
   async execute() {
-    const categories = await prismaClient.category.findMany({
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+    const categoryRepository = new CategoryRepository();
+
+    const categories = await categoryRepository.listAll();
 
     return categories;
   }

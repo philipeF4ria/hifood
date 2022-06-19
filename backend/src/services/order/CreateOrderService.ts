@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { OrderRepository } from '../../repositories/OrderRepository';
 
 interface IRequest {
   table: number;
@@ -7,13 +7,13 @@ interface IRequest {
 
 class CreateOrderService {
   async execute({ table, name }: IRequest) {
-    const order = await prismaClient.order.create({
-      data: {
-        table,
-        name,
-      },
+    const orderRepository = new OrderRepository();
+    
+    const order = await orderRepository.create({
+      table,
+      name,
     });
-
+    
     return order;
   }
 }

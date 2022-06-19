@@ -1,6 +1,7 @@
-import prismaClient from '../../prisma';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+
+import { UserRepository } from '../../repositories/UserRepository';
 
 interface IRequest {
   email: string;
@@ -9,11 +10,9 @@ interface IRequest {
 
 class AuthUserService {
   async execute({ email, password }: IRequest) {
-    const user = await prismaClient.user.findFirst({
-      where: {
-        email,
-      },
-    });
+    const userRepository = new UserRepository();
+    
+    const user = await userRepository.findByEmail({ email });
     
     if (!user) {
       throw new Error('User/password incorrect');

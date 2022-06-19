@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { ProductRepository } from '../../repositories/ProductRepository';
 
 interface IRequest {
   name: string;
@@ -10,19 +10,18 @@ interface IRequest {
 
 class CreateProductService {
   async execute({ name, price, description, banner, category_id }: IRequest) {
-    
-    if (!banner) {
-      throw new Error('Banner is required');
+    const productRepository = new ProductRepository();
+
+    if (!name || !price || !description || !banner || !category_id) {
+      throw new Error('All information is required');
     }
 
-    const product = await prismaClient.product.create({
-     data: {
-       name,
-       price,
-       description,
-       banner,
-       category_id,
-     }
+    const product = await productRepository.create({
+      name,
+      price,
+      description,
+      banner,
+      category_id,
     });
 
     return product;

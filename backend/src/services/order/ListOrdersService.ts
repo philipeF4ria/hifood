@@ -1,16 +1,10 @@
-import prismaClient from '../../prisma';
+import { OrderRepository } from '../../repositories/OrderRepository';
 
 class ListOrdersService {
   async execute() {
-    const orders = await prismaClient.order.findMany({
-      where: {
-        draft: false,
-        status: false,
-      },
-      orderBy: {
-        created_at: 'desc',
-      },
-    });
+    const orderRepository = new OrderRepository();
+
+    const orders = await orderRepository.listAllOpen();
 
     return orders;
   }

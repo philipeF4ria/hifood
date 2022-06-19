@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { OrderRepository } from '../../repositories/OrderRepository';
 
 interface IRequest {
   id: string;
@@ -6,11 +6,9 @@ interface IRequest {
 
 class RemoveOrderService {
   async execute({ id }: IRequest) {
-    await prismaClient.order.delete({
-      where: {
-        id,
-      },
-    });
+    const orderRepository = new OrderRepository();
+
+    await orderRepository.delete({ order_id: id });
 
     return;
   }

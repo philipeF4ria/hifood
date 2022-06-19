@@ -1,4 +1,4 @@
-import prismaClient from '../../prisma';
+import { ProductRepository } from '../../repositories/ProductRepository';
 
 interface IRequest {
   category_id: string;
@@ -6,17 +6,16 @@ interface IRequest {
 
 class ListProductsByCategoryService {
   async execute({ category_id }: IRequest) {
-    
+    const productRepository = new ProductRepository();
+
     if (!category_id) {
       throw new Error('Category ID is required');
     }
 
-    const products = await prismaClient.product.findMany({
-      where: {
-        category_id,
-      },
+    const products = await productRepository.listByCategoryId({ 
+      id: category_id,
     });
-
+  
     return products;
   }
 }
